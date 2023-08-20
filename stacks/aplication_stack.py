@@ -66,6 +66,6 @@ class ApplicationStack(Stack):
             ),
         )
 
-        # fargate_cluster.target_group.configure_health_check(
-        #     path="/docs"
-        # )
+        fargate_cluster.target_group.configure_health_check(
+            path="/docs"
+        )
