@@ -6,7 +6,7 @@ from aws_cdk import (
     aws_ecs as ecs,
     aws_ec2 as ec2,
     aws_iam as iam,
-    # aws_ecr as ecr,
+    aws_ecr as ecr,
 )
 from constructs import Construct
 
@@ -42,16 +42,16 @@ class ApplicationStack(Stack):
             description="Grant access to multiple AWS services",
         )
 
-        # ecr_repository = ecr.Repository.from_repository_name(
-        #     self,
-        #     "EcrRepository",
-        #     "demo-fastapi-mongodb",
-        # )
+        ecr_repository = ecr.Repository.from_repository_name(
+            self,
+            "EcrRepository",
+            "demo-fastapi-mongodb-1",
+        )
 
-        # ecr_image = ecs.ContainerImage.from_ecr_repository(
-        #     ecr_repository,
-        #     docker_tag,
-        # )
+        ecr_image = ecs.ContainerImage.from_ecr_repository(
+            ecr_repository,
+            "latest",
+        )
 
         fargate_cluster = ecs_patterns.ApplicationLoadBalancedFargateService(
             self,
@@ -61,11 +61,11 @@ class ApplicationStack(Stack):
             cpu=512,
             desired_count=1,    
             task_image_options=ecs_patterns.ApplicationLoadBalancedTaskImageOptions(
-                image=ecs.ContainerImage.from_registry("nginx:1.24.0"),
+                image=ecr_image,  
                 task_role=ecs_task_role,
             ),
         )
 
-        # fargate_cluster.target_group.configure_health_check(
-        #     path="/healthcheck"
-        # )
+        fargate_cluster.target_group.configure_health_check(
+            path="/docs"
+        )
