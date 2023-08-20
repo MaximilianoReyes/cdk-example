@@ -52,7 +52,7 @@ class ApplicationStack(Stack):
 
         ecr_image = ecs.ContainerImage.from_ecr_repository(
             ecr_repository,
-            "latest",
+            "1.5.0",
         )
 
         fargate_cluster = ecs_patterns.ApplicationLoadBalancedFargateService(
