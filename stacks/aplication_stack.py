@@ -1,3 +1,5 @@
+import time
+
 from aws_cdk import (
     # Duration,
     Stack,
