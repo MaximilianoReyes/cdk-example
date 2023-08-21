@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/MaximilianoReyes/cdk-example/compare/v1.0.0...v1.0.1) (2023-08-21)
+
+
+### Bug Fixes
+
+* mongo_uri and healthcheck ([8e80f8b](https://github.com/MaximilianoReyes/cdk-example/commit/8e80f8b05c2b46a7567b8ae7fe86c9255d2a137d))
+
 # 1.0.0 (2023-08-21)
 
 
