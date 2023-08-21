@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/MaximilianoReyes/cdk-example/compare/v1.0.1...v1.0.2) (2023-08-21)
+
+
+### Bug Fixes
+
+* context of mongo_uri ([f1c55ea](https://github.com/MaximilianoReyes/cdk-example/commit/f1c55ea92b822183ef7bb8b5ea28ff4c2941381d))
+
 ## [1.0.1](https://github.com/MaximilianoReyes/cdk-example/compare/v1.0.0...v1.0.1) (2023-08-21)
 
 
