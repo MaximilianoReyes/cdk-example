@@ -2,9 +2,9 @@
 name: Deploy
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types:
+      - published
 
 env:
   AWS_REGION: us-west-2
@@ -16,10 +16,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      # - name: Echo Hello
-      #   run: |             
-      #     echo hello world
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -42,12 +38,18 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Get Latest Release
+        uses: WyriHaximus/github-action-get-previous-tag@v1
+        id: latest_tag
+        with:
+          fallback: 0.0.1
+
       - name: Build, tag, and push API image
         id: build_image
         env:
           ECR_REGISTRY: ${{ steps.login_ecr.outputs.registry }}
           ECR_REPOSITORY: demo-fastapi-mongodb-1
-          IMAGE_TAG: 1.5.0
+          IMAGE_TAG: ${{ steps.latest_tag.outputs.tag }} # Hacer un cambio cada ves que quiera deployar de nuevo 
         working-directory: app
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
@@ -59,4 +61,4 @@ jobs:
           npm install -g aws-cdk
           pip install --upgrade pip
           pip install -r requirements.txt
-          cdk deploy --require-approval never
+          cdk deploy --context docker_tag=${{ steps.latest_tag.outputs.tag }} --require-approval never

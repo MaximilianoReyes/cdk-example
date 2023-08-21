@@ -19,7 +19,7 @@ class ApplicationStack(Stack):
         
         # bucket = s3.Bucket(self, "MyFirstBucket")
         
-        # docker_tag = self.node.try_get_context("docker_tag")
+        docker_tag = self.node.try_get_context("docker_tag")
         # mongodb_uri = self.node.try_get_context("mongodb_uri")
 
         # Creamos la VPC
@@ -52,7 +52,7 @@ class ApplicationStack(Stack):
 
         ecr_image = ecs.ContainerImage.from_ecr_repository(
             ecr_repository,
-            "1.5.0",
+            docker_tag, #Hacer un cambio cada ves que quiero deployar
         )
 
         fargate_cluster = ecs_patterns.ApplicationLoadBalancedFargateService(
