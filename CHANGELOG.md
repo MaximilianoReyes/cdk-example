@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/MaximilianoReyes/cdk-example/compare/v1.0.2...v1.1.0) (2023-08-21)
+
+
+### Features
+
+* add functions to inventory and users ([aae4865](https://github.com/MaximilianoReyes/cdk-example/commit/aae48655e90d413beb05a0792b36fd623d3351d8))
+
 ## [1.0.2](https://github.com/MaximilianoReyes/cdk-example/compare/v1.0.1...v1.0.2) (2023-08-21)
 
 
