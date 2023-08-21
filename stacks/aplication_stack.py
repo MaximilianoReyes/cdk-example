@@ -16,11 +16,9 @@ class ApplicationStack(Stack):
 
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
-        
-        # bucket = s3.Bucket(self, "MyFirstBucket")
-        
+                
         docker_tag = self.node.try_get_context("docker_tag")
-        # mongodb_uri = self.node.try_get_context("mongodb_uri")
+        mongodb_uri = self.node.try_get_context("mongodb_uri")
 
         # Creamos la VPC
         vpc = ec2.Vpc(
@@ -52,7 +50,7 @@ class ApplicationStack(Stack):
 
         ecr_image = ecs.ContainerImage.from_ecr_repository(
             ecr_repository,
-            docker_tag, #Hacer un cambio cada ves que quiero deployar
+            docker_tag, #El tag hara un cambio cada ves que queramos deployar el repositorio
         )
 
         fargate_cluster = ecs_patterns.ApplicationLoadBalancedFargateService(
@@ -65,9 +63,12 @@ class ApplicationStack(Stack):
             task_image_options=ecs_patterns.ApplicationLoadBalancedTaskImageOptions(
                 image=ecr_image,  
                 task_role=ecs_task_role,
+                environment={
+                    "MONGODB_URI": mongodb_uri
+                }
             ),
         )
 
         fargate_cluster.target_group.configure_health_check(
-            path="/docs"
+            path="/healthcheck"
         )

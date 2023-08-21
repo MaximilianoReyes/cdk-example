@@ -26,5 +26,5 @@ app.add_exception_handler(Forbidden, forbidden_exception_handler)
 @app.get("/healthcheck") #Prefijo
 async def healthcheck():
     return {
-        "healthcheck": "Sio"
+        "healthcheck": "Dulce"
     } 
