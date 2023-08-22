@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/MaximilianoReyes/cdk-example/compare/v1.1.0...v1.1.1) (2023-08-22)
+
+
+### Bug Fixes
+
+* new healthcheck ([1fa6c27](https://github.com/MaximilianoReyes/cdk-example/commit/1fa6c27a1946fc24892fe1f8c5b452cb3189d379))
+
 # [1.1.0](https://github.com/MaximilianoReyes/cdk-example/compare/v1.0.2...v1.1.0) (2023-08-21)
 
 
