@@ -3,7 +3,6 @@ import time
 from aws_cdk import (
     # Duration,
     Stack,
-    # aws_s3 as s3,
     aws_ecs_patterns as ecs_patterns,
     aws_ecs as ecs,
     aws_ec2 as ec2,
@@ -42,17 +41,20 @@ class ApplicationStack(Stack):
             description="Grant access to multiple AWS services",
         )
 
+        # Conexion al repositorio en ECR
         ecr_repository = ecr.Repository.from_repository_name(
             self,
             "EcrRepository",
             "demo-fastapi-mongodb-1",
         )
 
+        # Se sube la ultima version de la imagen 
         ecr_image = ecs.ContainerImage.from_ecr_repository(
             ecr_repository,
             docker_tag, #El tag hara un cambio cada ves que queramos deployar el repositorio
         )
 
+        # Definimos la imagen para el contenedor
         fargate_cluster = ecs_patterns.ApplicationLoadBalancedFargateService(
             self,
             "EcsFargateService",
